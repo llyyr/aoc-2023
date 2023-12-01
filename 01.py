@@ -2,7 +2,8 @@
 
 from aochelper import *
 
-inp = open('01.txt').read().splitlines()
+filename = sys.argv[1] if len(sys.argv) > 1 else sys.argv[0].replace('py', 'txt')
+inp = open(filename).read().splitlines()
 words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 def solve(part2=False):

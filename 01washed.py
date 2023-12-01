@@ -1,4 +1,7 @@
-inp = open('01.txt').read().splitlines()
+from aochelper import *
+
+filename = sys.argv[1] if len(sys.argv) > 1 else '01.txt'
+inp = open(filename).read().splitlines()
 words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 def p1(inp):
