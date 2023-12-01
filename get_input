@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ -z "$AOC_SESSION" ]; then
+	echo "AOC_SESSION env variable not found."
+	exit 1
+fi
+
+DAY=$(printf "%d" ${1:-$(date +"%-d")})
+YEAR=$(printf "%04d" ${2:-$(date +"%Y")})
+echo "Getting $YEAR/$DAY > $DAY.txt"
+echo "https://adventofcode.com/$YEAR/day/$DAY/input"
+curl -b "session=$AOC_SESSION" -A "https://github.com/llyyr" https://adventofcode.com/$YEAR/day/$DAY/input > $(printf "%02d" ${1:-$(date +"%-d")}).txt
