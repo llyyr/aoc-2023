@@ -34,10 +34,9 @@ def solve():
             for dr, dc in adjacents:
                 if G[dr][dc] == '*':
                     d[(dr, dc)].append(int(num))
-                    break
             if any(G[dr][dc] not in '.0123456789' for dr, dc in adjacents):
                 p1 += int(num)
             c += 1
-    return p1, sum(math.prod(x) for x in d.values() if len(x) > 1)
+    return p1, sum(math.prod(x) for x in d.values() if len(x) == 2)
 
 print(*solve())
