@@ -45,6 +45,15 @@ def timer(func):
 
 
 def ints(s):
+    return [int(s) for s in re.findall(r'\d+', s)]
+
+def sign(x):
+    if isinstance(x, complex):
+        return 0.0 if abs(x) == 0 else x / abs(x)
+    return (x > 0) - (x < 0)
+
+
+def py_ints(s):
     """
     >>> ints("Hello4.2this.is random 24 text42")
     [4.2, 24, 42]
@@ -75,9 +84,4 @@ def ints(s):
                 cur = ''
     nums = [float(t) if ('.' in t or 'e' in t) else int(t) for t in nums]
     return nums
-
-def sign(x):
-    if isinstance(x, complex):
-        return 0.0 if abs(x) == 0 else x / abs(x)
-    return (x > 0) - (x < 0)
 
