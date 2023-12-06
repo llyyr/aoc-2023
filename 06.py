@@ -12,8 +12,8 @@ def solve(part, times=times, distances=distances):
         distances = [int(''.join(map(str, distances)))]
     for time, distance in zip(times, distances):
         # Quadratic formula using only integer arithmetic
-        # Let t = travel time, 
-        #     T = race time, 
+        # Let t = travel time,
+        #     T = race time,
         #     B = button press duration, and
         #     D = travelled distance. Then,
         # (1) t = T - B

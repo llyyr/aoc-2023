@@ -16,13 +16,11 @@ def solve(inp):
         ok = True
         for subset in game:
             for cube in subset:
-                if not cube: break
                 n, color = cube.split()
                 n = int(n)
                 vals[color] = max(vals[color], n)
                 if n > target[color]:
                     ok = False
-                    break
         if ok:
             p1 += int(id)
         p2 += math.prod(vals.values())
