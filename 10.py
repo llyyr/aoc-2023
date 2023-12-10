@@ -3,37 +3,21 @@
 from aochelper import *
 
 filename = sys.argv[1] if len(sys.argv) > 1 else '10.txt'
-inp = open(filename).read().splitlines()
-
-NORTH, SOUTH, EAST, WEST  = map(tuple, DIRS)
-joints = {
-    'S': 'S',
-    '.': {},
-    '|': {NORTH, SOUTH},
-    '-': {WEST, EAST},
-    'L': {NORTH, EAST},
-    'J': {NORTH, WEST},
-    'F': {EAST, SOUTH},
-    '7': {WEST, SOUTH},
-}
-G = [[joints[c] for c in l.strip()] for l in inp]
-R, C = len(G), len(G[0])
-sr, sc = next((r, c) for r, l in enumerate(G) for c, ch in enumerate(l) if ch == 'S')
-G2 = set()
-for add, (c_r, c_c) in ((EAST, WEST), (WEST, EAST), (SOUTH, NORTH), (NORTH, SOUTH)): 
-    if (c_r, c_c) in G[sr + c_r][sc + c_c]:
-        G2.add(add)
+N, S, E, W  = map(tuple, DIRS)
+joints = {'|': {N, S}, '-': {W, E}, 'L': {N, E},
+          'J': {N, W}, 'F': {E, S}, '7': {W, S}, 'S': 'S', '.': {}}
+G = [[joints[c] for c in l.strip()] for l in open(filename)]
 
 def solve():
-    path = set((sr, sc))
+    sr, sc = next((r, l.index('S')) for r, l in enumerate(G) if 'S' in l)
+    G2 = {(dr, dc) for (dr, dc) in DIRS if (dr, dc) in G[sr + dr][sc + dc]}
+    path = {(sr, sc)}
     er, ec = G2.pop()
     dr, dc = (G2 - {(er, ec)}).pop()
-    r, c = sr + dr, sc + dc
-    while (r, c) != (sr, sc):
-        path |= {(r, c)}
+    r, c = sr, sc
+    while (r := r + dr, c := c + dc) != (sr, sc):
+        path.add((r, c))
         dr, dc = (G[r][c] - {(-dr, -dc)}).pop()
-        r, c = r + dr, c + dc
-    assert (dr, dc) == (er, ec)
 
     ret = 0
     for r, l in enumerate(G):
@@ -41,7 +25,7 @@ def solve():
         for c, ch in enumerate(l):
             if (r, c) in path:
                 inside = inside ^ set(ch)
-            elif inside >= {NORTH, SOUTH}:
+            elif inside >= {N, S}:
                 ret += 1
     return len(path) // 2, ret
 
