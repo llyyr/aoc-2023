@@ -3,10 +3,11 @@
 from aochelper import *
 
 filename = sys.argv[1] if len(sys.argv) > 1 else '10.txt'
-N, S, E, W  = map(tuple, DIRS)
+N, S, E, W  = DIRS
 joints = {'|': {N, S}, '-': {W, E}, 'L': {N, E},
           'J': {N, W}, 'F': {E, S}, '7': {W, S}, 'S': 'S', '.': {}}
 G = [[joints[c] for c in l.strip()] for l in open(filename)]
+R, C = len(G), len(G[0])
 
 def solve():
     sr, sc = next((r, l.index('S')) for r, l in enumerate(G) if 'S' in l)
@@ -20,12 +21,12 @@ def solve():
         dr, dc = (G[r][c] - {(-dr, -dc)}).pop()
 
     ret = 0
-    for r, l in enumerate(G):
-        inside = set()
-        for c, ch in enumerate(l):
+    for r in range(R):
+        inside = False
+        for c in range(C):
             if (r, c) in path:
-                inside = inside ^ set(ch)
-            elif inside >= {N, S}:
+                inside = not inside
+            elif inside:
                 ret += 1
     return len(path) // 2, ret
 
