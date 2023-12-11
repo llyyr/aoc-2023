@@ -28,10 +28,10 @@ def neighbours(x=0, y=0, amount=4):
 
 def hash2coords(inp):
     coords = set()
-    for y, line in enumerate(inp.splitlines()):
-        for x, c in enumerate(line):
-            if c == '#':
-                coords.add((x, y))
+    for r, line in enumerate(inp):
+        for c, ch in enumerate(line):
+            if ch == '#':
+                coords.add((r, c))
     return coords
 
 def timer(func):
