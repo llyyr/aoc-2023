@@ -15,7 +15,9 @@ class EqualToAny(object):
     def __eq__(self, other):
         return True
 
-DIRS = ((-1, 0), (1, 0), (0, 1), (0, -1))
+NORTH, SOUTH, EAST, WEST = ((-1, 0), (1, 0), (0, 1), (0, -1))
+UP, DOWN, RIGHT, LEFT = ((-1, 0), (1, 0), (0, 1), (0, -1))
+DIRS = (NORTH, SOUTH, EAST, WEST)
 DIRMAP = {'L': (-1, 0), 'R': (1, 0), 'U': (0, 1), 'D': (0, -1)}
 NEIGHBOURS = tuple(itertools.product((-1, 0, 1), repeat=2))
 
