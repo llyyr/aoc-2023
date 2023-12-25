@@ -46,15 +46,13 @@ def timer(func):
         return out
     return wrapper
 
-
 def ints(s):
-    return [int(s) for s in re.findall(r'\d+', s)]
+    return [int(s) for s in re.findall(r'-?\d+', s)]
 
 def sign(x):
     if isinstance(x, complex):
         return 0.0 if abs(x) == 0 else x / abs(x)
     return (x > 0) - (x < 0)
-
 
 def py_ints(s):
     """
@@ -87,4 +85,3 @@ def py_ints(s):
                 cur = ''
     nums = [float(t) if ('.' in t or 'e' in t) else int(t) for t in nums]
     return nums
-
